@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Example" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="b3feb929-ff71-42ac-a484-fd2c041cd148">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="405"/>
+	<parameter name="ledgerId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cl.collct_ledger_id
+	, cl.customer_id
+    , cl.plan_amount
+    , cl.due_amount
+    , cl.certificate_id
+    , cl.plan_id
+    , cl.plan_amount_collected
+    , cl.branch_id
+    , cl.fine_amount
+    , cl.installmentno_from
+    , cl.installmentno_to
+    , cl.nextdue_date
+    , cl.paid_dues
+    , cl.total_dues
+    , cl.senior_id
+    , cl.collected_date
+    , cl.payment_mode
+    , b.branch_name
+    , CONCAT(IFNULL(c.first_name,''), ' ', IFNULL(c.last_name,'')) AS fullname
+    , CONCAT(IFNULL(c.perm_address,''), ', ', IFNULL(s.state_name,''), ', '
+	, IFNULL(d.district_name, ''), '-', IFNULL(c.per_add_pin,''), '.') AS permAddress
+    , c.cus_dob
+    , c.cus_doj
+    , c.cust_code
+    , n.nominee_name
+	, n.nominee_dob
+    , n.nominee_relation
+    , p.plan_code
+    , p.plan_name
+    , y.year_name
+    , m.month_name
+    , ce.term_start
+    , ce.term_end
+    , ce.certificate_slno
+    , ce.certificate_id
+    , ps.return_amount
+    , ps.payable_amount
+    , IFNULL(ci.introducer_name,'') AS introducername
+	, IFNULL(ci.introducer_code,'') AS introducercode
+    FROM t_crm_collection_ledger_updated cl
+    LEFT JOIN m_base_branch b ON cl.branch_id = b.branch_id
+    LEFT JOIN m_crm_customer c ON cl.customer_id = c.customer_id
+    LEFT JOIN m_base_district d ON d.district_id = c.per_add_district_id
+    LEFT JOIN m_base_state s ON s.state_id = c.per_add_state_id
+    LEFT JOIN m_crm_nominee n ON cl.customer_id = n.customer_id
+    LEFT JOIN m_crm_plan p ON p.plan_id = cl.plan_id
+    LEFT JOIN m_crm_certificate ce ON ce.certificate_id = cl.certificate_id
+    LEFT JOIN m_base_year y ON y.year_id = ce.plan_tenure_year
+    LEFT JOIN m_base_month m ON m.month_id = ce.plan_tenure_month
+	LEFT JOIN m_crm_plan_sequence ps ON ps.plan_sequence_id = ce.sequence_id
+    LEFT JOIN m_crm_customer_introducer ci ON c.customer_id = ci.customer_id
+    WHERE cl.collct_ledger_id = $P{ledgerId}]]>
+	</queryString>
+	<field name="collct_ledger_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customer_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="due_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="certificate_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_amount_collected" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="branch_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fine_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="installmentno_from" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="installmentno_to" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nextdue_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paid_dues" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_dues" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="senior_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="collected_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payment_mode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="branch_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fullname" class="java.lang.String"/>
+	<field name="permAddress" class="java.lang.String"/>
+	<field name="cus_dob" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cus_doj" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cust_code" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nominee_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nominee_dob" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nominee_relation" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_code" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="year_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="month_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="term_start" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="term_end" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="certificate_slno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="return_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payable_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="introducername" class="java.lang.String"/>
+	<field name="introducercode" class="java.lang.String"/>
+	<detail>
+		<band height="786" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="25b426eb-69a3-44af-a56e-363ff6b609bf" x="5" y="153" width="40" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sl. No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4c0fbfd-4dd1-449a-89fd-06be38cea558" x="112" y="108" width="330" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="14" isBold="false" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[MEMBER'S PARTICIPATION LETTER ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="61bc98ff-090d-439a-a6eb-a725ff146bf6" x="237" y="153" width="204" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Member's Participation Code (MPC) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f5daab58-c027-4dec-9136-7d55149304ac" x="405" y="173" width="36" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="7ebe5423-6347-45e8-b3cf-49aa2d9c1acd" x="1" y="311" width="539" height="119"/>
+			</rectangle>
+			<line>
+				<reportElement uuid="6f3d03f8-06a9-4e7e-a115-e713cd7230c1" x="1" y="348" width="539" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="1e41bfab-4483-4002-b032-2461320aa6f9" x="189" y="311" width="1" height="119"/>
+			</line>
+			<line>
+				<reportElement uuid="4e91d426-6062-4f2e-97ae-3a5251569485" x="265" y="311" width="1" height="119"/>
+			</line>
+			<line>
+				<reportElement uuid="5d64dc82-cf2e-4d46-9d18-9d189787a77a" x="390" y="311" width="1" height="119"/>
+			</line>
+			<line>
+				<reportElement uuid="02a21993-31af-4a9a-b3a3-3da06d4e0f72" x="453" y="311" width="1" height="119"/>
+			</line>
+			<rectangle>
+				<reportElement uuid="746da458-bb63-4150-b36a-c1ce90e990cd" x="1" y="459" width="539" height="100"/>
+			</rectangle>
+			<line>
+				<reportElement uuid="fb731b3f-ebb0-415f-804c-aed6cb2d2f45" x="1" y="506" width="539" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="80e2fb40-ee9a-474e-83a7-945df1bbff26" x="54" y="459" width="1" height="100"/>
+			</line>
+			<line>
+				<reportElement uuid="73c8db69-5bab-4745-a194-9ed4f56e0d2d" x="109" y="459" width="1" height="100"/>
+			</line>
+			<line>
+				<reportElement uuid="0fa54ec0-02f5-488f-a71a-503d71ef1b4d" x="193" y="459" width="1" height="100"/>
+			</line>
+			<line>
+				<reportElement uuid="10ac2ea3-689a-4933-9618-dcbf9284c852" x="276" y="459" width="1" height="100"/>
+			</line>
+			<line>
+				<reportElement uuid="b062bde7-3b4d-4e32-808a-72bb144a6b0d" x="355" y="460" width="1" height="99"/>
+			</line>
+			<rectangle>
+				<reportElement uuid="7d291844-2009-4bf9-8df6-5aac0fb97b53" x="1" y="591" width="539" height="100"/>
+			</rectangle>
+			<line>
+				<reportElement uuid="749c4441-eeee-4530-bb34-e13ecb93e20b" x="1" y="623" width="539" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="6ed37c3b-87d8-41fb-abc0-9d7e2efec836" x="342" y="591" width="1" height="100"/>
+			</line>
+			<staticText>
+				<reportElement uuid="897159ca-b059-4251-89a8-6e9e98a82506" x="159" y="749" width="40" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stamp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5f881eee-4aa1-488c-a395-70ec9e4e11b7" x="340" y="749" width="135" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Authorized Signatory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="80915eca-d808-42a7-8244-7912055dead4" x="4" y="322" width="182" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name & Address of Member]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="02ae7333-da8b-4eec-b358-ac123596d8fa" x="190" y="322" width="75" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1d16564-8b68-44c7-9ec6-ab5017dd060b" x="268" y="322" width="122" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nominee's Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c43b2793-23e0-4b4b-9e91-78ff63276aa0" x="391" y="312" width="62" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nominee DOB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c61d8d18-1d16-4b1c-b404-4515e3b69418" x="454" y="312" width="86" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relation with Member]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7c6137bc-c048-47d0-8350-61a8df885967" x="149" y="288" width="294" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[MEMBER'S PERSONAL DETAILS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="afbbfed4-6f09-41a1-a094-e579f1dd6c3a" x="8" y="288" width="54" height="14"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="310a94b9-3fc5-4b65-b1a2-aec75a1c22fe" x="7" y="440" width="54" height="14"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ef4ee83b-ea7f-418f-8097-c295c4552639" x="153" y="440" width="294" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETAILS OF FARMING PLAN OPTED]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1cd84e88-40b0-485a-aa50-d605eea3b452" x="1" y="459" width="53" height="47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plan Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7426ea4b-106e-4bc1-8288-99ece918c04b" x="55" y="460" width="53" height="46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plan Term]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f8ecfeb9-4a9f-403f-9606-c9310f6da0a5" x="110" y="460" width="83" height="46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Commencement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d1fd77c3-a6c2-4574-afad-4da21350d862" x="199" y="460" width="71" height="46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Expiry of Plan Term]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c119a6b1-050d-419c-b98a-0f12e9e6507b" x="278" y="459" width="78" height="48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Installment Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5e840b23-3c86-4872-927e-6b6810e75bfa" x="357" y="459" width="184" height="47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Projected Agricultural/Non-Agricultural Income to Member on Expiry of Plan Term]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d70401d1-bd7e-4cf7-a5f9-07f3d14b1980" x="8" y="569" width="54" height="14"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b4b0f439-2a4c-4132-8a05-8871571c0257" x="154" y="569" width="294" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETAILS OF PROPOSER/ASSOCIATE MEMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f5ac7194-48c7-4490-ae98-660efdfcf5ef" x="113" y="599" width="124" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f16c5cc3-c84e-48f6-98bb-4031700bda3a" x="385" y="599" width="116" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Member Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf5f5d65-47bb-4f77-967b-c9ad5ae573f6" x="1" y="181" width="539" height="113"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="11" isBold="false" isItalic="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Dear Member,
+	We are in receipt of your application dated                          to induct your name in our Farming projects, Agriculture & Development Plans being organized in different states across the country by us. We are pleased to accept your participations subject to terms and conditions mentioned in the application, rules and regulations mentioned overleaf and other general terms and conditions of the company.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bdf90d4d-e2ce-4d73-ba4d-abb438834855" x="5" y="173" width="45" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rpt No:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1b99dd02-c907-41dc-a1b6-64954310f832" x="49" y="173" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{collct_ledger_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="48058dcf-0b9e-4654-b54b-82476ee2a4f4" x="45" y="153" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificate_slno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6df19069-4c04-497a-9385-da0506a7a67c" x="440" y="153" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cust_code}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="225b90e6-b868-41a3-8047-3d939afea847" x="440" y="173" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{collected_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="995a1856-c31c-4c50-bbe5-e3624ad8f276" x="270" y="213" width="80" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{term_start}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cc5f8f8c-9f09-4450-af11-f11bae76026c" x="5" y="351" width="181" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fullname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="189bc01b-9bd8-49f7-b202-32cc49cc855c" x="5" y="368" width="181" height="60"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permAddress}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a9dca8ad-8f6f-4c1d-b91b-34dd2bbc9351" x="193" y="351" width="71" height="77"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cus_dob}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b886e9d8-ab87-4bda-91be-36e72a29769c" x="268" y="351" width="120" height="77"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nominee_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="bf52e2a5-cdae-4daf-9186-eb2131fcfa06" x="392" y="351" width="60" height="77"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nominee_dob}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7cd60b9c-e2bf-4138-ae91-2aacbe05604a" x="457" y="351" width="80" height="77"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nominee_relation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="17bfb172-4aa0-40b8-94f0-ca3e4393013b" x="4" y="508" width="47" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{plan_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e9f425ea-5207-45bb-819d-df806eb6e9ba" x="55" y="515" width="53" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{year_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cd6431b8-77d8-48bd-82b2-95e890105177" x="54" y="532" width="55" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{month_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a2b66296-8af2-42e8-b42c-1da524742e16" x="113" y="510" width="76" height="47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{term_start}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="146b72d3-ecd6-40db-9bfd-c3daae3d12fc" x="199" y="510" width="71" height="47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{term_end}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="8805db84-d3bb-44a9-8e6a-e7b57887cd96" x="279" y="510" width="72" height="47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{payable_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="9ef5cd42-ddbf-4a40-93db-0951c91757cd" x="357" y="509" width="180" height="48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{return_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cf4816fb-6a76-48fd-92ae-6f26d6fae154" x="6" y="629" width="330" height="56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{introducername}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b7f30299-7ba9-43af-ad4f-321d2519e05c" x="348" y="629" width="186" height="56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{introducercode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

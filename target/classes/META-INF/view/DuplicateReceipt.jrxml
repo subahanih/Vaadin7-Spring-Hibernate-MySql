@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Receipt" printOrder="Horizontal" pageWidth="960" pageHeight="384" columnWidth="888" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="af0e79a4-9f15-4fb8-8c6e-e06eac805da3">
+	<property name="ireport.zoom" value="1.000000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ledgerId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cl.collct_ledger_id
+	, cl.customer_id
+    , cl.plan_amount
+    , cl.due_amount
+    , cl.certificate_id
+    , cl.plan_id
+    , cl.plan_amount_collected
+    , cl.branch_id
+    , cl.fine_amount
+    , cl.installmentno_from
+    , cl.installmentno_to
+    , cl.nextdue_date
+    , cl.paid_dues
+    , cl.total_dues
+    , cl.senior_id
+    , cl.collected_date
+    , cl.payment_mode
+    , b.branch_name
+    , CONCAT(IFNULL(c.first_name,''), ' ', IFNULL(c.last_name,'')) AS fullname
+    , CONCAT(IFNULL(c.perm_address,''), ', ', IFNULL(s.state_name,''), ', '
+	, IFNULL(d.district_name, ''), '-', IFNULL(c.per_add_pin,''), '.') AS permAddress
+    , c.cus_dob
+    , c.cus_doj
+    , c.cust_code
+    , p.plan_code
+    , p.plan_name
+    , y.year_name
+    , m.month_name
+    , ce.term_start
+    , ce.term_end
+    , ce.certificate_slno
+    , ce.certificate_id
+    , ps.return_amount
+    , ps.payable_amount
+    , c.s_d_w
+    , b.branch_address
+    , ps.sequence_duration
+    , IFNULL(ci.introducer_name ,'') AS introducername
+	, IFNULL(ci.introducer_code, '') AS introducercode
+    FROM t_crm_collection_ledger_updated cl
+    LEFT JOIN m_base_branch b ON cl.branch_id = b.branch_id
+    LEFT JOIN m_crm_customer c ON cl.customer_id = c.customer_id
+    LEFT JOIN m_base_district d ON d.district_id = c.per_add_district_id
+    LEFT JOIN m_base_state s ON s.state_id = c.per_add_state_id
+    LEFT JOIN m_crm_plan p ON p.plan_id = cl.plan_id
+    LEFT JOIN m_crm_certificate ce ON ce.certificate_id = cl.certificate_id
+    LEFT JOIN m_base_year y ON y.year_id = ce.plan_tenure_year
+    LEFT JOIN m_base_month m ON m.month_id = ce.plan_tenure_month
+	LEFT JOIN m_crm_plan_sequence ps ON ps.plan_sequence_id = ce.sequence_id
+    LEFT JOIN m_crm_customer_introducer ci ON c.customer_id = ci.customer_id
+    WHERE cl.collct_ledger_id = $P{ledgerId}]]>
+	</queryString>
+	<field name="collct_ledger_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customer_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="due_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="certificate_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_amount_collected" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="branch_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fine_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="installmentno_from" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="installmentno_to" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nextdue_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paid_dues" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_dues" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="senior_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="collected_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payment_mode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="branch_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fullname" class="java.lang.String"/>
+	<field name="permAddress" class="java.lang.String"/>
+	<field name="cus_dob" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cus_doj" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cust_code" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_code" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plan_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="year_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="month_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="term_start" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="term_end" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="certificate_slno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="return_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payable_amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="s_d_w" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="branch_address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sequence_duration" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="introducername" class="java.lang.String"/>
+	<field name="introducercode" class="java.lang.String"/>
+	<detail>
+		<band height="312" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a886a2b3-a167-4a13-9e3e-050f332a5918" x="166" y="96" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{plan_amount_collected}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b5017f6f-83fd-4e4b-a5da-805a4e5c268b" x="166" y="123" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fullname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="64950375-7ace-487e-a1de-fd3e15c95438" x="166" y="150" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{s_d_w}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ed12e34b-f702-4954-bcfd-a59ee2a76fae" x="166" y="175" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d4d8a8ef-101e-4e35-9459-80571ed1c152" x="247" y="286" width="479" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{branch_address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a92130fe-b403-4413-9e89-b96b90f1130c" x="626" y="96" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{collct_ledger_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="78b6ac7c-f5fe-40c9-8bc3-84677ce3202a" x="626" y="123" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sequence_duration}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d8c96c79-3bb5-4434-bfff-552dd391837a" x="626" y="146" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificate_slno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="0cc9af59-778b-47e6-9905-a982bf5c82b0" x="626" y="186" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{term_end}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e75c268f-91a4-4250-bc6d-3efb262e5ebd" x="776" y="69" width="70" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{plan_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="995bcbd6-d51f-4e81-9cc7-dbdac1fe4fee" x="776" y="123" width="70" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fine_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="83ae175e-a97d-4ad5-86ae-01adddd8a427" x="776" y="186" width="70" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nextdue_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c6f06d98-70b7-4fcb-821c-e06a847be0ac" x="20" y="9" width="365" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{branch_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement uuid="05fcd5f1-9ece-4a91-b73b-992b2b0ea293" x="164" y="63" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c0d6ad8d-dcb8-4fe8-99f0-709acd46109d" x="360" y="47" width="178" height="16"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[DUPLICATE RECEIPT]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ecddb03c-feef-4600-b30a-4a5310ed1498" x="626" y="166" width="25" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{installmentno_from}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b40be1c4-d3e2-4d61-8eb2-3cc15f16fe89" x="651" y="166" width="10" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d6c58b18-f1f2-45a9-9aa7-07757fd4f53f" x="661" y="166" width="25" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{installmentno_to}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="965d12ef-93b8-486d-b51a-993ad79b3ff6" x="26" y="266" width="125" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Black" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{plan_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,1 @@
+$wnd.com_ninox_focus_view_base_AppWidgetSet.runAsyncCallback2('$8(1403,1,Nkd);_.vc=function e0b(){pRb((!iRb&&(iRb=new uRb),iRb),this.b.e)};mfd(Vh)(2);\n//# sourceURL=com.ninox.focus.view.base.AppWidgetSet-2.js\n')

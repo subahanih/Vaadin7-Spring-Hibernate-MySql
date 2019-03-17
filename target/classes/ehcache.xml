@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+	<defaultCache eternal="true" maxElementsInMemory="100" overflowToDisk="false" />
+
+	<!-- Ehcache -->
+	<cache name="user" maxElementsInMemory="10000" eternal="true"
+		overflowToDisk="false" />
+	<cache name="screenAccCon" maxElementsInMemory="10000" eternal="true"
+		overflowToDisk="false" />
+	<cache name="approvalSchema" maxElementsInMemory="10000" eternal="true"
+		overflowToDisk="false" />
+	<cache name="appScreens" maxElementsInMemory="10000" eternal="true"
+		overflowToDisk="false" />
+
+</ehcache>

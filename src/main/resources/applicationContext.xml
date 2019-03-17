@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+	<!-- ehcache configurations -->
+	<cache:annotation-driven />
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehcache" />
+	</bean>
+
+	<bean id="ehcache"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+		<property name="shared" value="true" />
+	</bean>
+
+	<!-- annotation configuration -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.ninox" />
+
+	<!-- SQL properties Loading -->
+	<context:property-placeholder location="classpath:ninoxSQL.properties" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost:3306/focus" p:username="root"
+		p:password="root" />
+
+	<!-- Bean -->
+	<bean id="userLogin" class="com.ninox.focus.serviceImpl.UserLoginServiceImpl" />
+	<bean id="appUser" class="com.ninox.focus.serviceImpl.UserServiceImpl" />
+	<bean id="appScreens" class="com.ninox.focus.serviceImpl.AppScreensServiceImpl" />
+	<bean id="approvalSchema" class="com.ninox.focus.serviceImpl.ApprovalSchemaServiceImpl" />
+	<bean id="scrnAccessConfig" class="com.ninox.focus.serviceImpl.ScreenAccessConfigServiceImpl" />
+	<bean id="employee" class="com.ninox.focus.serviceImpl.EmployeeServiceImpl" />
+	<bean id="empDocument" class="com.ninox.focus.serviceImpl.EmployeeDocumentServiceImpl" />
+	<bean id="company" class="com.ninox.focus.serviceImpl.CompanyServiceImpl" />
+	<bean id="lookup" class="com.ninox.focus.serviceImpl.LookUpServiceImpl" />
+	<bean id="slNoGen" class="com.ninox.focus.serviceImpl.SlnoGenServiceImpl" />
+
+	<!-- Hibernate -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan" value="com.ninox"></property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.ninox.focus.domain.ApprovalSchemaDM</value>
+				<value>com.ninox.focus.domain.AppScreensDM</value>
+				<value>com.ninox.focus.domain.CompanyDM</value>
+				<value>com.ninox.focus.domain.EmployeeDM</value>
+				<value>com.ninox.focus.domain.LookUpDM</value>
+				<value>com.ninox.focus.domain.ScreenAccessConfigDM</value>
+				<value>com.ninox.focus.domain.UserDM</value>
+				<value>com.ninox.focus.domain.UserLoginDM</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>
